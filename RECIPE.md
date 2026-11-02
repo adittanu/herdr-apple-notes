@@ -56,14 +56,14 @@ Art is eight 24×24 monochrome SVGs in the mod folder, tinted with `text_color`:
 
 ## In a menu
 
-The key is not enough on its own: put a row in the sidebar footer, next to Settings, so the app is reachable by mouse. In the layout's chrome mod (`t3-chrome` here), the footer branch gains one row above Settings, and the icon is a copy of `mods/apple-notes/notes.svg` beside it:
+The key is not enough on its own: put a row in the sidebar footer, next to Settings, so the app is reachable by mouse. Clone the layout's chrome mod first (`herdr-app do mod.clone --name workspace-chrome --as main-chrome`) — an update replaces the shipped one and the row with it. The footer branch then gains one row above Settings, and the icon is a copy of `mods/apple-notes/notes.svg` beside it:
 
 ```js
-.child(row("notes", "notes", "Notes", () => run("mod.open", { name: "apple-notes" })))
-.child(row("settings", "settings", "Settings", () => run("app.settings")))
+.child(row("notes", "notes", "Notes", false, () => run("mod.open", { name: "apple-notes" })))
+.child(row("settings", "settings", "Settings", false, () => run("app.settings")))
 ```
 
-`row` is the existing 30px row helper (icon, label, hover, `role("button")`). Two rows need the footer block's height in `layouts/<layout>.json` to go from `"px": 41` to `"px": 74` (4 + 30 + 2 + 30 + 6); leave it at 41 and the second row is clipped.
+`row` is the footer's existing row helper (icon, label, hover, click); `workspace-chrome` takes a `dim` flag before the action, `t3-chrome` does not. The footer is sized in `layouts/<layout>.json`: 28px rows want `"px": 96` for three (4 + 28×3 + 8), 30px rows want `"px": 74` for two; too short and the last row is clipped.
 
 ## Watch out
 
