@@ -1,5 +1,5 @@
 {
   "global": {
-    "cmd-shift-n": "mod.open:apple-notes"
+    "ctrl-shift-m": "mod.open:apple-notes"
   }
 }

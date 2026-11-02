@@ -37,7 +37,7 @@ One mod, `mods/apple-notes/`:
 { "place": "none", "title": "Notes", "overlay": { "kind": "window", "width": 1080, "height": 700 } }
 ```
 
-`mod.open:apple-notes` toggles that window. `keys.json` binds it to `cmd-shift-n`; merge, don't replace.
+`mod.open:apple-notes` toggles that window. `keys.json` binds it to `ctrl-shift-m`; merge, don't replace. Not `ctrl-shift-n` — Herdr ships that as `space.new`, and `cmd-*` never fires on Windows.
 
 `main.js` exports `class AppleNotes extends View`. `init` builds three `InputState`s (title, search, new folder) and one `EditorState` for the body with `language: "txt"`, `line_numbers: false`, `folding: false`, `soft_wrap: true`, `font_family: settings().ui_font_family`, `font_size: 13.5`. `render` draws three fixed-width columns with 1px dividers; the editor takes `flex_1`.
 
