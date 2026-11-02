@@ -54,6 +54,17 @@ From `herdr`: `theme()`, `settings()`, `appHome()`, `props()`, `closeOverlay()`.
 
 Art is eight 24×24 monochrome SVGs in the mod folder, tinted with `text_color`: `folder.svg` and `notes.svg` (both `#f2c14e`), `folder-plus.svg`, `square-pen.svg`, `search.svg`, `trash.svg`, `x.svg`, and `note.svg` for both empty states.
 
+## In a menu
+
+The key is not enough on its own: put a row in the sidebar footer, next to Settings, so the app is reachable by mouse. In the layout's chrome mod (`t3-chrome` here), the footer branch gains one row above Settings, and the icon is a copy of `mods/apple-notes/notes.svg` beside it:
+
+```js
+.child(row("notes", "notes", "Notes", () => run("mod.open", { name: "apple-notes" })))
+.child(row("settings", "settings", "Settings", () => run("app.settings")))
+```
+
+`row` is the existing 30px row helper (icon, label, hover, `role("button")`). Two rows need the footer block's height in `layouts/<layout>.json` to go from `"px": 41` to `"px": 74` (4 + 30 + 2 + 30 + 6); leave it at 41 and the second row is clipped.
+
 ## Watch out
 
 - **Write `mod.json` before `main.js`.** A folder seen with `main.js` and no `mod.json` gets docked into the shown layout at the right (320px); adding `"place": "none"` afterwards does not remove that copy. Delete the block from `layouts/<shown>.json` if it happened.
@@ -71,6 +82,7 @@ Art is eight 24×24 monochrome SVGs in the mod folder, tinted with `text_color`:
 
 - `herdr-app check ~/.config/herdr-app/mods/apple-notes` passes.
 - `herdr-app do mod.open --name apple-notes` shows a 1080×700 window with three columns, "All Notes" selected, and "Welcome to Notes" open in the editor.
+- The sidebar footer shows a Notes row above Settings, not clipped, and clicking it opens the same window.
 - Typing in the title changes the list row; typing in the body changes the snippet; both survive closing and reopening the window.
 - Compose creates an empty note in the current folder and focuses the title. Trash removes it and selects the next note.
 - Folder-plus + Enter adds a folder with count 0; clicking it shows "No Note Selected".
